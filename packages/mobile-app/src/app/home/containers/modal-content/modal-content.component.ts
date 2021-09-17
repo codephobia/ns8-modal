@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Page } from '@nativescript/core';
 
 @Component({
     selector: 'modal-content-page',
@@ -11,8 +12,11 @@ export class ModalContentPageComponent implements OnInit {
     public id: string;
 
     constructor(
+        private _page: Page,
         private _route: ActivatedRoute,
-    ) { }
+    ) {
+        this._page.actionBarHidden = true;
+    }
 
     public ngOnInit(): void {
         this.id = this._route.snapshot.paramMap.get('id');

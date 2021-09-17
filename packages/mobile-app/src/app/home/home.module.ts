@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptCommonModule } from "@nativescript/angular";
+import { NativeDialogModule, NativeScriptCommonModule } from "@nativescript/angular";
 
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./containers/home/home.component";
@@ -10,6 +10,7 @@ import { ModalContentComponent } from './components/modal-content/modal-content.
 @NgModule({
     imports: [
         NativeScriptCommonModule,
+        NativeDialogModule,
         HomeRoutingModule,
     ],
     declarations: [
@@ -17,9 +18,6 @@ import { ModalContentComponent } from './components/modal-content/modal-content.
         ModalComponent,
         ModalContentPageComponent,
         ModalContentComponent,
-    ],
-    entryComponents: [
-        ModalComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

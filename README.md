@@ -14,3 +14,5 @@ Make sure you have yarn set in the nativescript cli.
 Run with emulator. (currently only testing android)
 `yarn run mobile:android`
 or run `ns run android` from `/packages/mobile-app`.
+
+Update: Managed to get the modal loading by switching to NativeDialogModule / NativeDialogService, but the transparency code still seems to break the modal. Assuming there is some changes required to make it work with the updated NS8 code.

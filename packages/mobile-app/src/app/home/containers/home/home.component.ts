@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef } from "@angular/core";
-import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
+import { NativeDialogConfig, NativeDialogService } from '@nativescript/angular';
 
 import { ModalComponent } from '../../components/modal/modal.component';
 
@@ -11,20 +11,25 @@ import { ModalComponent } from '../../components/modal/modal.component';
 })
 export class HomeComponent {
     constructor(
-        private _vcRef: ViewContainerRef,
-        private _modalService: ModalDialogService,
+        private _viewContainerRef: ViewContainerRef,
+        private _nativeDialogService: NativeDialogService,
     ) { }
 
     public openModal(): void {
-        const options: ModalDialogOptions = {
-            viewContainerRef: this._vcRef,
-            context: {
+        const options: NativeDialogConfig = {
+            viewContainerRef: this._viewContainerRef,
+            data: {
                 id: 1,
             },
-            fullscreen: true,
-            animated: true,
+            nativeOptions: {
+                fullscreen: true,
+            },
         };
 
-        this._modalService.showModal(ModalComponent, options);
+        this._nativeDialogService.open(ModalComponent, options)
+            .afterClosed()
+            .subscribe((result) => {
+                console.log('MODAL CLOSED:', result);
+            });;
     }
 }

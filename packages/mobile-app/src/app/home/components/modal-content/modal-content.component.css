@@ -1,7 +1,8 @@
 .content {
-  background-color: red;
+  background-color: pink;
 }
 
 .label {
-  color: white;
+  color: black;
+  font-size: 30;
 }

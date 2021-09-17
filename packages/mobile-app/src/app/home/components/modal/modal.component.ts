@@ -1,6 +1,6 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDialogParams, RouterExtensions } from '@nativescript/angular';
+import { NativeDialogRef, NATIVE_DIALOG_DATA, RouterExtensions } from '@nativescript/angular';
 import { Page, View } from '@nativescript/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,14 +23,15 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     constructor(
         private _injector: Injector,
-        private _params: ModalDialogParams,
+        @Inject(NATIVE_DIALOG_DATA) private _data: { [key: string]: any },
+        private _nativeDialogRef: NativeDialogRef<ModalComponent>,
         private _page: Page,
         private _router: RouterExtensions,
         private _route: ActivatedRoute,
         private _modalService: ModalService,
     ) {
-        XzDialogUtil.makeTransparentDialog(this._page, 90);
-        this.id = this._params.context.id;
+        // XzDialogUtil.makeTransparentDialog(this._page, 90);
+        this.id = this._data.id;
     }
 
     public ngOnInit(): void {
@@ -39,33 +40,33 @@ export class ModalComponent implements OnInit, OnDestroy {
     }
 
     public onModalLoaded(target: View): void {
-        // target.animate({
-        //     opacity: 0,
-        //     duration: 0,
-        // })
-        //     .then(() => target.animate({
-        //         opacity: 1,
-        //         duration: this._animationDuration
-        //     }))
-        //     .catch((e: Error) => {
-        //         console.log(e.message);
-        //     });
+        target.animate({
+            opacity: 0,
+            duration: 0,
+        })
+            .then(() => target.animate({
+                opacity: 1,
+                duration: this._animationDuration
+            }))
+            .catch((e: Error) => {
+                console.log(e.message);
+            });
     }
 
     public onContentLoaded(target: View): void {
-        // target.animate({
-        //     opacity: 0,
-        //     translate: { y: 600, x: 0 },
-        //     duration: 0,
-        // })
-        //     .then(() => target.animate({
-        //         opacity: 1,
-        //         translate: { y: 0, x: 0 },
-        //         duration: this._animationDuration
-        //     }))
-        //     .catch((e: Error) => {
-        //         console.log(e.message);
-        //     });
+        target.animate({
+            opacity: 0,
+            translate: { y: 600, x: 0 },
+            duration: 0,
+        })
+            .then(() => target.animate({
+                opacity: 1,
+                translate: { y: 0, x: 0 },
+                duration: this._animationDuration
+            }))
+            .catch((e: Error) => {
+                console.log(e.message);
+            });
     }
 
     public ngOnDestroy(): void {
@@ -75,7 +76,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     private _loadInitialRoute(): void {
         this._router.navigate(
             ['modal-content', this.id],
-            { relativeTo: this._route },
+            { relativeTo: this._route }
         );
     }
 
@@ -83,7 +84,7 @@ export class ModalComponent implements OnInit, OnDestroy {
         this._modalService.closed$.pipe(
             takeUntil(this._destroy$)
         ).subscribe(() => {
-            this._params.closeCallback();
+            this._nativeDialogRef.close();
         });
     }
 }
