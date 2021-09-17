@@ -1,0 +1,10 @@
+<StackLayout #modal (loaded)="onModalLoaded(modal)">
+    <GridLayout rows="35,*" class="modal">
+        <page-router-outlet
+            #content
+            (loaded)="onContentLoaded(content)"
+            class="content"
+            row="1"
+        ></page-router-outlet>
+    </GridLayout>
+</StackLayout>

@@ -1,0 +1,21 @@
+{
+    "name": "ns8-modal",
+    "version": "1.0.0",
+    "scripts": {
+        "mobile:android": "lerna exec --scope=mobile-app -- yarn run start:android",
+        "mobile:ios": "lerna exec --scope=mobile-app -- yarn run start:ios",
+        "lerna:version": "lerna version --conventional-commits"
+    },
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "packages/*"
+        ],
+        "nohoist": [
+            "eslint"
+        ]
+    },
+    "dependencies": {
+        "lerna": "^3.20.2"
+    }
+}
