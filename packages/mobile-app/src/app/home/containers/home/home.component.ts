@@ -1,6 +1,8 @@
 import { Component, ViewContainerRef } from "@angular/core";
 import { NativeDialogConfig, NativeDialogService } from '@nativescript/angular';
 
+import { ModalService } from '~/app/services/modal.service';
+import { BottomSheetComponent } from '../../components/bottom-sheet/bottom-sheet.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
@@ -13,6 +15,7 @@ export class HomeComponent {
     constructor(
         private _viewContainerRef: ViewContainerRef,
         private _nativeDialogService: NativeDialogService,
+        private _modalService: ModalService,
     ) { }
 
     public openModal(): void {
@@ -31,5 +34,9 @@ export class HomeComponent {
             .subscribe((result) => {
                 console.log('MODAL CLOSED:', result);
             });;
+    }
+
+    public openRootLayoutBottomSheet(): void {
+        this._modalService.openBottomSheet(BottomSheetComponent, { id: '10' });
     }
 }
